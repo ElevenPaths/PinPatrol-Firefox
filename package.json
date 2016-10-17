@@ -1,7 +1,7 @@
 {
   "title": "PinPatrol",
-  "name": "PinPatrol",
-  "version": "0.0.7",
+  "name": "pinpatrol",
+  "version": "0.0.8",
   "description": "Read SiteSecurityServiceState.txt file.",
   "main": "index.js",
   "author": "ElevenPaths",
@@ -10,7 +10,7 @@
   },
   "license": "GPL",
   "keywords": [
-    "hsts", "hpkp", "certificate pinning", "TLS"
+     "certificate", "certificates", "certification authority", "encryption", "hpkp", "hsts", "https", "issuer", "jetpack", "man in the middle", "mitm", "privacy", "security", "ssl", "tls", "x509" 
   ],
   "permissions": {
     "multiprocess": true

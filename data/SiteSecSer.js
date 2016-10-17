@@ -96,7 +96,7 @@ function writeTable(list){
                     var property = lastrow[1];
 
                     //include subdomains
-                    var subDomains = lastrow[2] === 1 ? "includeSubdomains" : " - ";
+                    var subDomains = lastrow[2] == 1 ? "includeSubdomains" : " - ";
 
                     if(lastrow[3] != null){
                         var pins = lastrow[3].split("=");
