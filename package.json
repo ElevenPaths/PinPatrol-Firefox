@@ -1,6 +1,6 @@
 {
   "title": "PinPatrol",
-  "name": "pinpatrol",
+  "name": "PinPatrol",
   "version": "0.0.8",
   "description": "Read SiteSecurityServiceState.txt file.",
   "main": "index.js",
