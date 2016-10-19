@@ -51,7 +51,6 @@ function writeTable(list){
             "targets": 5,
             "createdCell": function (td, cellData, rowData, row, col) {
                 $(td).attr('title', cellData);
-1
             },
             "render": function (data, type, full, meta) {
                 //security property set
@@ -115,6 +114,6 @@ function writeTable(list){
             }
         }
         var table = $('#tableFile').DataTable();
-        table.row.add([domain, HSTS, score, dateDate, dateExpire, property, subDomains, fpins ]).draw(false);
+        table.row.add([domain, HSTS, score, dateDate, dateExpire, property, subDomains, fpins]).draw(false);
     }
 }
