@@ -13,7 +13,7 @@ body {
     color: #888888;
     margin: 40px;
     text-shadow: 0 1px 0 white;
-    background: url('img_glow.png') #e5e5e5 top left;
+    background: url('img/img_glow.png') #e5e5e5 top left;
     background-repeat: no-repeat;
 }
 
@@ -55,9 +55,13 @@ th.listTableTitle{
 }
 
 .intro {
-    max-width: 1300px;
     font-size: 15px;
     padding:  15px 0px 30px 0px;
+}
+
+.note {
+    font-size: 16px;
+    padding:  10px 0px 10px 0px;
 }
 
 .outro {
@@ -67,7 +71,7 @@ th.listTableTitle{
 }
 
 .footer{
-    height: 20px;
+    height: 45px;
     margin-right: 10px;
 }
 span{

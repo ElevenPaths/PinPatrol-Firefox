@@ -1,22 +1,4 @@
-
-self.port.on("onSuccess", function(data) {
-    $('[data-toggle="tooltip"]').tooltip();
-    writeTable(data);
-    self.port.emit("close-tab", "close");
-
-});
-
-self.port.on("onRejected", function(error) {
-    $('[data-toggle="tooltip"]').tooltip();
-    $('#tableFile').DataTable();
-    if (error['operation'] === 'open'){
-        alert("SiteSecurityServiceState.txt file not found.");
-    }
-
-});
-
-function writeTable(list){
-
+$(document).ready(function(){
     var table = $('#tableFile').DataTable({
         "initComplete": function( settings, json ) {
             $('div.loading').remove();
@@ -67,10 +49,89 @@ function writeTable(list){
 
                 return property;
             }
-
         }]
-
     });
+
+    var dropTable = document.getElementById("tableFile");
+    dropTable.addEventListener('dragover', handleDragOver, false);
+    dropTable.addEventListener('drop', handleJSONDrop, false);
+
+    document.getElementById('files').addEventListener('change', handleFileSelect, false);
+    $("#filesclick").click(function() {
+        if ($("#tableFileBody").hasClass('emptyTable')){
+            $( "#files" ).click();
+        }
+    });
+});
+
+function handleFileSelect(evt) {
+  var files = evt.target.files; // FileList object
+
+  // Loop through the FileList and read
+  for (var i = 0, f; f = files[i]; i++) {
+    if (f.name == 'SiteSecurityServiceState.txt' && f.type == 'text/plain') {
+    var reader = new FileReader();
+
+    // Closure to capture the file information.
+    reader.onload = (function(theFile) {
+        return function(e) {
+            var text = e.target.result;
+            var list = text.split("\n");
+            list.pop(); //delete the last
+
+            var table = $('#tableFile').DataTable();
+            table.rows().remove().draw(false);
+            writeTable(list);
+          };
+        })(f);
+
+        reader.readAsText(f);
+
+        $("#tableFileBody").removeClass('emptyTable'); // Only read from file first time
+    } else {
+            alert('This isn´t file SiteSecurityServiceState.txt');
+        }
+    }
+}
+
+function handleDragOver(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+    evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+}
+
+ function handleJSONDrop(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+    var files = evt.dataTransfer.files;
+    // Loop through the FileList and read
+    for (var i = 0, f; f = files[i]; i++) {
+        if (f.name == 'SiteSecurityServiceState.txt' && f.type == 'text/plain') {
+        var reader = new FileReader();
+
+        // Closure to capture the file information.
+        reader.onload = (function(theFile) {
+          return function(e) {
+            var text = e.target.result;
+            var list = text.split("\n");
+            list.pop(); //delete the last
+
+            var table = $('#tableFile').DataTable();
+            table.rows().remove().draw(false);
+            writeTable(list);
+          };
+        })(f);
+
+        reader.readAsText(f);
+
+        $("#tableFileBody").removeClass('emptyTable'); // Only read from file first time
+        } else {
+            alert('This isn´t file SiteSecurityServiceState.txt');
+        }
+    }
+}
+
+function writeTable(list){
 
     for(var i = 0; i<list.length; i++) {
         var columns = list[i].split("\t");
@@ -97,7 +158,7 @@ function writeTable(list){
                     //include subdomains
                     var subDomains = lastrow[2] == 1 ? "includeSubdomains" : " - ";
 
-                    if(lastrow[3] != null){
+                    if(lastrow[3] != 0 && lastrow[3] != 2){
                         var pins = lastrow[3].split("=");
                         var temp = "";
                         for(var k = 0; k < pins.length; k++){
@@ -116,4 +177,5 @@ function writeTable(list){
         var table = $('#tableFile').DataTable();
         table.row.add([domain, HSTS, score, dateDate, dateExpire, property, subDomains, fpins]).draw(false);
     }
+    $('#dropfiles').remove();
 }
