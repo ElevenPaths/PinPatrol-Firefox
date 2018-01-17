@@ -158,7 +158,7 @@ function writeTable(list){
                     //include subdomains
                     var subDomains = lastrow[2] == 1 ? "includeSubdomains" : " - ";
 
-                    if(lastrow[3] != 0 && lastrow[3] != 2){
+                    if(typeof lastrow[3] !== 'undefined' && lastrow[3] != 0 && lastrow[3] != 2){
                         var pins = lastrow[3].split("=");
                         var temp = "";
                         for(var k = 0; k < pins.length; k++){
