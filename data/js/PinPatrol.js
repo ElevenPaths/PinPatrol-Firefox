@@ -3,6 +3,7 @@ $(document).ready(function(){
         "initComplete": function( settings, json ) {
             $('div.loading').remove();
         },
+        "oLanguage": {"sEmptyTable": "<div id=\"filesclick\" class=\"note\">Click here or drag and drop <b>SiteSecurityServiceState.txt</b> file from your profile or any other file with <b>SiteSecurityServiceState.txt</b> format.</div><div class=\"note\"><b>Windows:</b> %appdata%\\Mozilla\\Firefox\\Profiles\\&lt;default profile folder&gt;<br><b>Mac OS X:</b> ~/Library/Application Support/Firefox/Profiles/&lt;default profile folder&gt;<br><b>Linux:</b> ~/.mozilla/firefox/&lt;default profile folder&gt;</div>"},
         "columnDefs": [{
             "targets": 3,
             "createdCell": function (td, cellData, rowData, row, col) {
