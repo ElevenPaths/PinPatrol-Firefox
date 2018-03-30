@@ -49,10 +49,10 @@ $(document).ready(function(){
             "render": function (data, type, full, meta) {
                 //security property set
                 var property = "";
-                if(data == 0){
+                if(data === 0){
                     property = "SecurityPropertyUnset";
                 }
-                else if(data == 1){
+                else if(data === 1){
                     property = "SecurityPropertySet";
                 }
                 else{
@@ -81,7 +81,7 @@ function handleFileSelect(evt) {
 
   // Loop through the FileList and read
   for (var i = 0, f; f = files[i]; i++) {
-    if (f.name == 'SiteSecurityServiceState.txt' && f.type == 'text/plain') {
+    if (f.name === 'SiteSecurityServiceState.txt' && f.type === 'text/plain') {
     var reader = new FileReader();
 
     // Closure to capture the file information.
@@ -118,7 +118,7 @@ function handleDragOver(evt) {
     var files = evt.dataTransfer.files;
     // Loop through the FileList and read
     for (var i = 0, f; f = files[i]; i++) {
-        if (f.name == 'SiteSecurityServiceState.txt' && f.type == 'text/plain') {
+        if (f.name === 'SiteSecurityServiceState.txt' && f.type === 'text/plain') {
         var reader = new FileReader();
 
         // Closure to capture the file information.
@@ -168,7 +168,7 @@ function writeTable(list){
                     var property = lastrow[1];
 
                     //include subdomains
-                    var subDomains = lastrow[2] == 1 ? "includeSubdomains" : " - ";
+                    var subDomains = lastrow[2] === 1 ? "includeSubdomains" : " - ";
 
                     if(typeof lastrow[3] !== 'undefined' && lastrow[3] != 0 && lastrow[3] != 2){
                         var pins = lastrow[3].split("=");
