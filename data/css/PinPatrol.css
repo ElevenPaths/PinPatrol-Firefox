@@ -1,6 +1,6 @@
-.even{background-color: #f1f1f1;}
+.table-striped>tbody>tr:nth-child(odd){background-color: #f1f1f1;}
 
-.odd{background-color:transparent}
+.table-striped>tbody>tr:nth-child(even){background-color:#e8e8e8}
 
 *{
     margin: 0;
