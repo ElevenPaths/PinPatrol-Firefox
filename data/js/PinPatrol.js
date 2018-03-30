@@ -49,10 +49,10 @@ $(document).ready(function(){
             "render": function (data, type, full, meta) {
                 //security property set
                 var property = "";
-                if(data === 0){
+                if(data === '0'){
                     property = "SecurityPropertyUnset";
                 }
-                else if(data === 1){
+                else if(data === '1'){
                     property = "SecurityPropertySet";
                 }
                 else{
