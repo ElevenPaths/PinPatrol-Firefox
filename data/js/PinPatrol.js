@@ -1,9 +1,20 @@
 $(document).ready(function(){
+    var os = getOS();
+    var sEmptyTable;
+    if (os === 'macOS') {
+        sEmptyTable = `<div id=\"filesclick\" class=\"note\">Click here or drag and drop <b>SiteSecurityServiceState.txt</b> file from your profile or any other file with <b>SiteSecurityServiceState.txt</b> format. OS Detected: ${os}<br> On macOS you may need to open a terminal and run "chflags nohidden ~/Library/" first.</div><div class=\"note\"><b>File location on macOS:</b> ~/Library/Application Support/Firefox/Profiles/&lt;default profile folder&gt;</div>`
+    } else if (os === 'Linux') {
+        sEmptyTable = `<div id=\"filesclick\" class=\"note\">Click here or drag and drop <b>SiteSecurityServiceState.txt</b> file from your profile or any other file with <b>SiteSecurityServiceState.txt</b> format. OS Detected: ${os}</div><div class=\"note\"><b>Linux:</b> ~/.mozilla/firefox/&lt;default profile folder&gt;</div>`
+    } else if (os === 'Windows') {
+        sEmptyTable = `<div id=\"filesclick\" class=\"note\">Click here or drag and drop <b>SiteSecurityServiceState.txt</b> file from your profile or any other file with <b>SiteSecurityServiceState.txt</b> format. OS Detected: ${os}</div><div class=\"note\"><b>Windows:</b> %appdata%\\Mozilla\\Firefox\\Profiles\\&lt;default profile folder&gt;</div>`
+    } else {
+        sEmptyTable = '<div id=\"filesclick\" class=\"note\">Click here or drag and drop <b>SiteSecurityServiceState.txt</b> file from your profile or any other file with <b>SiteSecurityServiceState.txt</b> format. OS could not be detected.<br>On macOS you may need to open a terminal and run "chflags nohidden ~/Library/" first.</div><div class=\"note\"><b>Windows:</b> %appdata%\\Mozilla\\Firefox\\Profiles\\&lt;default profile folder&gt;<br><b>Mac OS X:</b> ~/Library/Application Support/Firefox/Profiles/&lt;default profile folder&gt;<br><b>Linux:</b> ~/.mozilla/firefox/&lt;default profile folder&gt;</div>'
+    }
     var table = $('#tableFile').DataTable({
         "initComplete": function( settings, json ) {
             $('div.loading').remove();
         },
-        "oLanguage": {"sEmptyTable": "<div id=\"filesclick\" class=\"note\">Click here or drag and drop <b>SiteSecurityServiceState.txt</b> file from your profile or any other file with <b>SiteSecurityServiceState.txt</b> format. On macOS you may need to open a terminal and run `chflags nohidden ~/Library/` first.</div><div class=\"note\"><b>Windows:</b> %appdata%\\Mozilla\\Firefox\\Profiles\\&lt;default profile folder&gt;<br><b>Mac OS X:</b> ~/Library/Application Support/Firefox/Profiles/&lt;default profile folder&gt;<br><b>Linux:</b> ~/.mozilla/firefox/&lt;default profile folder&gt;</div>"},
+        "oLanguage": {"sEmptyTable": sEmptyTable},
         "columnDefs": [{
             "targets": 3,
             "createdCell": function (td, cellData, rowData, row, col) {
@@ -179,4 +190,21 @@ function writeTable(list){
         table.row.add([domain, HSTS, score, dateDate, dateExpire, property, subDomains, fpins]).draw(false);
     }
     $('#dropfiles').remove();
+}
+
+function getOS() {
+    var platform = window.navigator.platform,
+        macOSPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+        windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+        os = null;
+
+    if (macOSPlatforms.indexOf(platform) !== -1) {
+        os = 'macOS';
+    } else if (windowsPlatforms.indexOf(platform) !== -1) {
+        os = 'Windows';
+    } else if (!os && /Linux/.test(platform)) {
+        os = 'Linux';
+    }
+    
+    return os;
 }
