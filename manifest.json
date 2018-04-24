@@ -3,7 +3,7 @@
   "manifest_version": 2,
   "name": "PinPatrol",
   "short_name": "PinPatrol for Firefox Quantum",
-  "version": "0.3",
+  "version": "0.4",
   "description": "This table shows, in a readable format, the state of HSTS and HPKP domains stored by the browser.",
   "author": "ElevenPaths",
   "icons": {
